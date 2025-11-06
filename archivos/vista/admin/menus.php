@@ -1,13 +1,49 @@
 <?php
 session_start();
+
+// ✅ 1. Verificar que la sesión esté activa y el rol sea válido
 if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
     header("Location: index.php?k=4");
     exit();
 }
-include('../../include/conex.php');
+
+// ✅ 2. Incluir conexión de forma segura
+require_once(__DIR__ . '/../../include/conex.php');
 $conexion = conex();
 
-$resultado = mysqli_query($conexion, "SELECT * FROM menus");
+// ✅ 3. Verificar conexión a la base de datos
+if (!$conexion) {
+    error_log("Error de conexión a la base de datos: " . mysqli_connect_error());
+    die("Error al conectar con la base de datos.");
+}
+
+// ✅ 4. Usar consultas preparadas (buen hábito, incluso sin variables)
+$query = "SELECT * FROM menus";
+$stmt = mysqli_prepare($conexion, $query);
+
+if (!$stmt) {
+    error_log("Error al preparar consulta: " . mysqli_error($conexion));
+    die("Error interno. Intente más tarde.");
+}
+
+// ✅ 5. Ejecutar la consulta y obtener resultados
+mysqli_stmt_execute($stmt);
+$resultado = mysqli_stmt_get_result($stmt);
+
+// ✅ 6. Manejar posibles errores en la ejecución
+if (!$resultado) {
+    error_log("Error al ejecutar consulta: " . mysqli_error($conexion));
+    die("No se pudieron obtener los datos.");
+}
+
+// ✅ 7. Procesar los datos (ejemplo)
+while ($fila = mysqli_fetch_assoc($resultado)) {
+    echo htmlspecialchars($fila['nombre_menu']); // Ejemplo de salida segura
+}
+
+// ✅ 8. Cerrar recursos
+mysqli_stmt_close($stmt);
+mysqli_close($conexion);
 ?>
 
 <!DOCTYPE html>

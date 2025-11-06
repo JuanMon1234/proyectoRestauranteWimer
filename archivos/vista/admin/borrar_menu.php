@@ -1,10 +1,30 @@
 <?php
-include('../../include/conex.php');
+session_start();
+if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
+    header("Location: index.php?k=4");
+    exit();
+}
+
+require_once(__DIR__ . '/../../include/conex.php');
 $conexion = conex();
 
-$id = $_GET['id'];
-mysqli_query($conexion, "DELETE FROM menus WHERE id_menu = $id");
+if (!$conexion) {
+    die("Error de conexión: " . mysqli_connect_error());
+}
 
-header('Location: archivos\vista\menus.php');
+if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+    die("ID no válido.");
+}
+
+$id = (int)$_GET['id'];
+
+$stmt = mysqli_prepare($conexion, "DELETE FROM menus WHERE id_menu = ?");
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+
+mysqli_stmt_close($stmt);
+mysqli_close($conexion);
+
+header('Location: ../../archivos/vista/menus.php');
 exit();
 ?>
