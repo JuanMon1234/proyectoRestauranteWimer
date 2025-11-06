@@ -1,7 +1,4 @@
 <?php
-
-use Include\Conexion;
-
 session_start();
 if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
     header("Location: index.php?k=4");
@@ -9,7 +6,7 @@ if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
 }
 
 require_once __DIR__ . '/../../include/conex.php';
-$conexion = Conexion::crear();
+$conexion = conex();
 
 if (!$conexion) {
     die("Error de conexión: " . mysqli_connect_error());
