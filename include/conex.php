@@ -7,7 +7,7 @@ class Conexion
     {
         $servername = "localhost";
         $username   = "root";
-        $claveDB   = "TuClave1234";
+        $claveDB   = "";
         $db         = "restaurante";
         $port = 3307;
 
