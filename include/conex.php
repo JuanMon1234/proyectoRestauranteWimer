@@ -7,11 +7,11 @@ class Conexion
     {
         $servername = "localhost";
         $username   = "root";
-        $password1   = "TuClave1234";
+        $claveDB   = "TuClave1234";
         $db         = "restaurante";
         $port = 3307;
 
-        $conexion = mysqli_connect($servername, $username, $password1, $db, $port);
+        $conexion = mysqli_connect($servername, $username, $claveDB, $db, $port);
 
         if (!$conexion) {
             die("❌ Error de conexión: " . mysqli_connect_error());
