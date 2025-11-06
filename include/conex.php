@@ -7,7 +7,7 @@ class Conexion
     {
         $servername = "localhost";
         $username   = "root";
-        $password   = "";
+        $password   = "TuClave1234";
         $db         = "restaurante";
         $port = 3307;
 
