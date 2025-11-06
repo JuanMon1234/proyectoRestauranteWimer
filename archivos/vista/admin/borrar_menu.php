@@ -5,7 +5,7 @@ if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
     exit();
 }
 
-require_once(__DIR__ . '/../../include/conex.php');
+require_once __DIR__ . '/../../include/conex.php';
 $conexion = conex();
 
 if (!$conexion) {
