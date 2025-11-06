@@ -1,0 +1,54 @@
+     body {
+  background: linear-gradient(135deg, #348453, #00f2fe);
+}
+
+        /* Estilos personalizados para el login */
+        .login-container {
+        max-width: 400px;
+        margin: 5rem auto;
+        padding: 0 15px;
+        }
+        
+        .login-card {
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        border: none;
+        }
+        
+        .login-header {
+        background: linear-gradient(135deg, #e63946, #457b9d);
+        color: white;
+        border-radius: 10px 10px 0 0 !important;
+        }
+        
+        .form-control:focus {
+        border-color: #457b9d;
+        box-shadow: 0 0 0 0.25rem rgba(69, 123, 157, 0.25);
+        }
+        
+        .btn-login {
+        background-color: #e63946;
+        border: none;
+        transition: all 0.3s;
+        }
+        
+        .btn-login:hover {
+        background-color: #c1121f;
+        transform: translateY(-2px);
+        }
+        
+        .modal-content {
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+        }
+        
+        .modal-header {
+        background: linear-gradient(135deg, #e63946, #457b9d);
+        color: rgb(182, 141, 180);
+        border-radius: 10px 10px 0 0 !important;
+        }
+        
+        .btn-close {
+        filter: invert(1);
+        }
