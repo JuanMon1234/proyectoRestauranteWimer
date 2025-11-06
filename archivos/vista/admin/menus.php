@@ -1,4 +1,7 @@
 <?php
+
+use Include\Conexion;
+
 session_start();
 
 // ✅ 1. Verificar que la sesión esté activa y el rol sea válido
@@ -9,8 +12,8 @@ if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
 
 // ✅ 2. Incluir conexión de forma segura
 require_once __DIR__ . '/../../include/conex.php';
-$conexion = conex();
-
+$Conexion = new Conexion();
+$conexion = $Conexion::crear();
 // ✅ 3. Verificar conexión a la base de datos
 if (!$conexion) {
     error_log("Error de conexión a la base de datos: " . mysqli_connect_error());
