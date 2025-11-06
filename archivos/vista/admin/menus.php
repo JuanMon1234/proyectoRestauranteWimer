@@ -9,7 +9,7 @@ if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
 
 // ✅ 2. Incluir conexión de forma segura
 require_once __DIR__ . '/../../include/conex.php';
-$conexion = conex();
+$conexion = IncludeDB\Conexion::conectar();
 
 // ✅ 3. Verificar conexión a la base de datos
 if (!$conexion) {

@@ -4,9 +4,9 @@ if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
     header("Location: index.php?k=4");
     exit();
 }
+use IncludeDB\Conexion;
 
-require_once __DIR__ . '/../../include/conex.php';
-$conexion = conex();
+$conexion = Conexion::conectar();
 
 if (!$conexion) {
     die("Error de conexión: " . mysqli_connect_error());
