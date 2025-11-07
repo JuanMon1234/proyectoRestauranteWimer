@@ -7,13 +7,6 @@ if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
     exit();
 }
 
-// ✅ 2. Registrar un autoload sencillo para cargar clases automáticamente
-spl_autoload_register(function ($clase) {
-    $ruta = __DIR__ . '/../../' . str_replace('\\', '/', $clase) . '.php';
-    if (file_exists($ruta)) {
-        include_once $ruta;
-    }
-});
 
 // ✅ 3. Importar la clase del namespace IncludeDB
 use IncludeDB\conexion;
