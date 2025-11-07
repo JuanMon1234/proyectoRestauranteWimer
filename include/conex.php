@@ -1,7 +1,7 @@
 <?php
 namespace IncludeDB;
 
-class conexion
+class Conexion
 {
     public static function conexion()
     {
