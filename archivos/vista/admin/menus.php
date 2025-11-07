@@ -16,10 +16,10 @@ spl_autoload_register(function ($clase) {
 });
 
 // ✅ 3. Importar la clase del namespace IncludeDB
-use IncludeDB\Conexion;
+use IncludeDB\conexion;
 
 // ✅ 4. Crear conexión a la base de datos
-$conexion = Conexion::conectar();
+$conexion = conexion::conectar();
 
 // ✅ 5. Preparar y ejecutar consulta segura
 $query = "SELECT * FROM menus";
