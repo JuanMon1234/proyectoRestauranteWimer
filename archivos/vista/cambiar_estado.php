@@ -1,9 +1,12 @@
 <?php
+
+use IncludeDB\conexion;
+
 require_once("../../include/config.php");
 require_once("../../include/funciones.php");
 
 // Conexión a la base de datos
-$conexion = conex(); // asegúrate de que retorna un mysqli válido
+$conexion = conexion::conexion(); // asegúrate de que retorna un mysqli válido
 
 // Validar datos recibidos
 if (empty($_POST['id']) || empty($_POST['estado'])) {

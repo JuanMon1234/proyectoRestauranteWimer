@@ -6,7 +6,7 @@ if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
 }
 use IncludeDB\conexion;
 
-$conexion = conexion::conectar();
+$conexion = conexion::conexion();
 
 if (!$conexion) {
     die("Error de conexión: " . mysqli_connect_error());

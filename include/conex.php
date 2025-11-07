@@ -1,9 +1,9 @@
 <?php
 namespace IncludeDB;
 
-class Conexion
+class conexion
 {
-    public static function conectar()
+    public static function conexion()
     {
         $servername = "localhost";
         $username   = "root";
