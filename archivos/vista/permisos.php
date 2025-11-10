@@ -17,12 +17,11 @@ if ($idrol <= 0) {
     exit();
 }
 use IncludeDB\Conexion;
-$conn = Conexion::conexion();   
+$conn = Conexion::conexion();  
 // 1. Obtener información del rol
 $sqlRol = "SELECT idrol, Nombre FROM roles WHERE idrol = $idrol LIMIT 1";
 $resRol = mysqli_query($conn, $sqlRol);
 $rol = mysqli_fetch_assoc($resRol);
-
 // 2. Obtener permisos actuales
 $permisos_rol = [];
 $sqlPermisos = "SELECT idmenu, idsubmenu, es_area FROM permisos_rol WHERE idrol = $idrol AND permitido = 1";
@@ -113,7 +112,6 @@ mysqli_close($conn);
         </div>
         <?php endforeach; ?>
     </div>
-
     <div class="d-flex justify-content-end mt-3">
         <button type="submit" class="btn btn-primary">Guardar permisos</button><!--este es guardar interno el que si funciona-->
     </div>
