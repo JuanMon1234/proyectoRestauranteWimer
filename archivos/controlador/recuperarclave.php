@@ -26,9 +26,10 @@ mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
 if ($usuario = mysqli_fetch_assoc($result)) {
+
     $token = bin2hex(random_bytes(32));
 
-    // Guardar el token en la base de datos
+    // Guardar token
     $sql_token = "UPDATE usuarios SET Token_recuperacion = ? WHERE Correo = ?";
     $stmt2 = mysqli_prepare($link, $sql_token);
     mysqli_stmt_bind_param($stmt2, "ss", $token, $correo);
@@ -41,20 +42,20 @@ if ($usuario = mysqli_fetch_assoc($result)) {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'fernandomontilla8@gmail.com'; // Tu correo
-        $mail->Password = 'txwt somx owox zfqs'; // Tu contraseña de aplicación
+        $mail->Username = 'fernandomontilla8@gmail.com';
+        $mail->Password = 'txwt somx owox zfqs';
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
-$mail->SMTPOptions = [
-    'ssl' => [
-        'verify_peer' => false,
-        'verify_peer_name' => false,
-        'allow_self_signed' => true
-    ]
-];
-    } catch (Exception $e) {
-        echo "Error enviando correo: {$mail->ErrorInfo}";
 
+        $mail->SMTPOptions = [
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ];
+
+        // Datos del mensaje
         $mail->setFrom('fernandomontilla8@gmail.com', 'Soporte Restaurante');
         $mail->addAddress($correo, $usuario['Nombres']);
         $mail->isHTML(true);
@@ -69,10 +70,22 @@ $mail->SMTPOptions = [
         ";
 
         $mail->send();
-        echo json_encode(['success' => true, 'msg' => 'Correo enviado con éxito. Revisa tu bandeja de entrada.']);
-} catch (Exception $e) {
+
+        echo json_encode([
+            'success' => true,
+            'msg' => 'Correo enviado con éxito. Revisa tu bandeja de entrada.'
+        ]);
+
+    } catch (Exception $e) {
+        echo json_encode([
+            'success' => false,
+            'msg' => 'Error al enviar correo: ' . $mail->ErrorInfo
+        ]);
+    }
+
+} else {
     echo json_encode([
         'success' => false,
-        'msg' => 'Error al enviar correo: ' . $mail->ErrorInfo
+        'msg'     => 'El correo no está registrado.'
     ]);
-}}
+}
