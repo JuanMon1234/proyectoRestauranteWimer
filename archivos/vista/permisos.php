@@ -17,8 +17,7 @@ if ($idrol <= 0) {
     exit();
 }
 use IncludeDB\Conexion;
-$conn = Conexion::conexion();  
-// 1. Obtener información del rol
+$conn = Conexion::conexion();// 1. Obtener información del rol
 $sqlRol = "SELECT idrol, Nombre FROM roles WHERE idrol = $idrol LIMIT 1";
 $resRol = mysqli_query($conn, $sqlRol);
 $rol = mysqli_fetch_assoc($resRol);
