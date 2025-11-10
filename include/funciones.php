@@ -6,25 +6,32 @@ require_once(__DIR__ . '/conex.php');
 require_once(__DIR__ . '/config.php');
 
 /**
- * Ejecuta una consulta SQL y retorna el resultado
+ * Ejecuta una consulta SQL segura con parámetros
  */
-function ejecutarConsulta($sql) {
+function ejecutarConsultaSegura($sql, $paramTypes = "", $params = []) {
     $conexion = Conexion::conexion();
-    $resultado = mysqli_query($conexion, $sql);
-    
-    if (!$resultado) {
-        error_log("Error SQL: " . mysqli_error($conexion) . "\nConsulta: " . $sql);
-        throw new Exception("Error en la consulta SQL");
+
+    $stmt = mysqli_prepare($conexion, $sql);
+
+    if (!$stmt) {
+        error_log("Error al preparar consulta: " . mysqli_error($conexion));
+        throw new Exception("Error al preparar consulta SQL");
     }
-    
-    // Cierra la conexión si no es una consulta que devuelve resultados
-    if (!is_bool($resultado)) {
-        mysqli_close($conexion);
+
+    // Si hay parámetros, los asociamos
+    if ($paramTypes && !empty($params)) {
+        mysqli_stmt_bind_param($stmt, $paramTypes, ...$params);
     }
-    
+
+    mysqli_stmt_execute($stmt);
+
+    $resultado = mysqli_stmt_get_result($stmt);
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conexion);
+
     return $resultado;
 }
-
 /**
  * Verifica si el usuario tiene una sesión válida
  */
