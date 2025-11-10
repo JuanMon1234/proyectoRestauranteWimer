@@ -20,40 +20,67 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['idrol'])) {
 }
 
 $idrol = intval($_POST['idrol']);
-$permisos_menu = $_POST['permisos_menu'] ?? []; // Array de IDs de menús completos
-$permisos_submenu = $_POST['permisos_submenu'] ?? []; // Array de IDs de submenús
+$permisos_menu = $_POST['permisos_menu'] ?? [];
+$permisos_submenu = $_POST['permisos_submenu'] ?? [];
 
 $conn = Conexion::conexion();
-mysqli_begin_transaction($conn);
+$conn->begin_transaction();
 
 try {
-    // 1. Eliminar permisos anteriores
-    mysqli_query($conn, "DELETE FROM permisos_rol WHERE idrol = $idrol");
 
-    // 2. Insertar permisos de menú completo
+    // ✅ 1. Eliminar permisos anteriores con sentencia preparada
+    $stmt = $conn->prepare("DELETE FROM permisos_rol WHERE idrol = ?");
+    $stmt->bind_param("i", $idrol);
+    $stmt->execute();
+
+    // ✅ 2. Insertar permisos de menú completo
+    $stmt_menu = $conn->prepare(
+        "INSERT INTO permisos_rol (idrol, idmenu, idsubmenu, permitido, es_area) 
+         VALUES (?, ?, NULL, 1, 1)"
+    );
+
     foreach ($permisos_menu as $idmenu) {
         $idmenu = intval($idmenu);
-        mysqli_query($conn, "INSERT INTO permisos_rol (idrol, idmenu, idsubmenu, permitido, es_area) 
-                            VALUES ($idrol, $idmenu, NULL, 1, 1)");
+        $stmt_menu->bind_param("ii", $idrol, $idmenu);
+        $stmt_menu->execute();
     }
 
-    // 3. Insertar permisos de submenús
+    // ✅ 3. Insertar permisos de submenús
+    $stmt_submenu_select = $conn->prepare(
+        "SELECT idmenu FROM submenu WHERE idsubmenu = ? AND es_activo = 1 LIMIT 1"
+    );
+
+    $stmt_submenu_insert = $conn->prepare(
+        "INSERT INTO permisos_rol (idrol, idmenu, idsubmenu, permitido, es_area) 
+         VALUES (?, ?, ?, 1, 0)"
+    );
+
     foreach ($permisos_submenu as $idsubmenu) {
         $idsubmenu = intval($idsubmenu);
+
         // Obtener idmenu del submenú
-        $res = mysqli_query($conn, "SELECT idmenu FROM submenu WHERE idsubmenu 
-        = $idsubmenu AND es_activo = LIMIT 1");
-        if ($res && $row = mysqli_fetch_assoc($res)) {
-            mysqli_query($conn, "INSERT INTO permisos_rol (idrol, idmenu, idsubmenu, permitido, es_area) 
-                                VALUES ($idrol, {$row['idmenu']}, $idsubmenu, 1, 0)");
+        $stmt_submenu_select->bind_param("i", $idsubmenu);
+        $stmt_submenu_select->execute();
+        $res = $stmt_submenu_select->get_result();
+
+        if ($row = $res->fetch_assoc()) {
+            $idmenu_padre = $row['idmenu'];
+            $stmt_submenu_insert->bind_param("iii", $idrol, $idmenu_padre, $idsubmenu);
+            $stmt_submenu_insert->execute();
         }
     }
 
-    mysqli_commit($conn);
+    // ✅ Confirmación de transacción
+    $conn->commit();
     echo json_encode(['success' => true]);
+
 } catch (Exception $e) {
-    mysqli_rollback($conn);
+
+    // ❌ Algo falló, revertir
+    $conn->rollback();
     echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+
 } finally {
-    mysqli_close($conn);
+
+    $conn->close();
 }
