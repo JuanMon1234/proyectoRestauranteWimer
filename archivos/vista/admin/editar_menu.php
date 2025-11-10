@@ -1,13 +1,21 @@
 <?php
 
 use IncludeDB\Conexion;
-
 include('../../include/conex.php');
 $conexion = Conexion::conexion();
 
-$id = $_GET['id'];
-$resultado = mysqli_query($conexion, "SELECT * FROM menus WHERE id_menu = $id");
-$menu = mysqli_fetch_assoc($resultado);
+$id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
+
+if (!$id) {
+    die("ID inválido.");
+}
+
+// ✅ SELECT seguro
+$stmt = $conexion->prepare("SELECT * FROM menus WHERE id_menu = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$resultado = $stmt->get_result();
+$menu = $resultado->fetch_assoc();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = $_POST['nombre_plato'];
@@ -15,18 +23,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $precio = $_POST['precio'];
     $disponible = isset($_POST['disponible']) ? 1 : 0;
 
-    $query = "UPDATE menus SET 
-              nombre_plato='$nombre', 
-              descripcion='$descripcion', 
-              precio='$precio', 
-              disponible='$disponible' 
-              WHERE id_menu = $id";
-    mysqli_query($conexion, $query);
+    // ✅ UPDATE seguro
+    $stmt = $conexion->prepare(
+        "UPDATE menus SET nombre_plato = ?, descripcion = ?, precio = ?, disponible = ? WHERE id_menu = ?"
+    );
+    $stmt->bind_param("ssdii", $nombre, $descripcion, $precio, $disponible, $id);
+    $stmt->execute();
+
     header('Location: menus.php');
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
