@@ -62,4 +62,3 @@ if ($stmt2->execute()) {
 echo json_encode($jTableResult);
 exit;
 
-?>
