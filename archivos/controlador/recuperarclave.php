@@ -7,7 +7,7 @@ require_once '../../herramientas/PHPMailer/src/Exception.php';
 use IncludeDB\Conexion;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
+$env = include('../../include/env.php');
 header('Content-Type: application/json');
 
 $link = Conexion::conexion();
@@ -42,8 +42,8 @@ if ($usuario = mysqli_fetch_assoc($result)) {
         $mail->isSMTP();
         $mail->Host = 'smtp.gmail.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'fernandomontilla8@gmail.com';
-        $mail->Password = 'txwt somx owox zfqs';
+        $mail->Username = $env['MAIL_USER'];
+        $mail->Password = $env['MAIL_PASS'];
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
