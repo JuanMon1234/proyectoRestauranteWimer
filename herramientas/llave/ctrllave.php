@@ -4,61 +4,62 @@ use IncludeDB\Conexion;
 
 include '../../herramientas/llave/llave.php';
 include '../../include/enviaremail.php';
-include '../../include/config.php'; // Aquí tienes el remitente y la contraseña de app
+include '../../include/config.php';
+
 $link = Conexion::conexion();
 
 $email_destinatario = $_POST['correoinicio'] ?? '';
 $jTableResult = ['msjValidez' => '', 'rspst' => 0];
 
-if (filter_var($email_destinatario, FILTER_VALIDATE_EMAIL)) {
-
-    $sql = "SELECT Correo FROM usuarios WHERE Correo = '$email_destinatario'";
-    $result = mysqli_query($link, $sql);
-
-    if ($result && mysqli_num_rows($result) > 0) {
-
-        // ✅ Generar clave aleatoria
-        $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $clave = '';
-        for ($i = 0; $i < 8; $i++) {
-            $clave .= $caracteres[rand(0, strlen($caracteres) - 1)];
-        }
-
-        // ✅ Enviar el correo
-        $resul = enviarCorreo($email_remitente, $email_destinatario, $password, $clave);
-
-        if ($resul == true) {
-            // ✅ Encriptar la nueva clave y actualizar en BD
-                $clave_encriptada = password_hash($clave, PASSWORD_DEFAULT);
-                $update = "UPDATE usuarios SET Clave = '$clave_encriptada' WHERE Correo = '$email_destinatario'";
-                $actualizado = mysqli_query($link, $update);
-
-                if ($actualizado) {
-                $jTableResult['rspst'] = 1;
-                $jTableResult['msjValidez'] = "Se envió un correo con su nueva clave";
-                $sqlclave = "UPDATE usuarios SET Clave = '$clave' WHERE usuarios.Correo = '$email_destinatario'";
-                $resultclave = mysqli_query($link, $sqlclave);
-
-            // } else {
-            //     $jTableResult['rspst'] = 4;
-            //     $jTableResult['msjValidez'] = "Error al actualizar la contraseña en la base de datos";
-            // }
-        } else {
-            $jTableResult['rspst'] = 3;
-            $jTableResult['msjValidez'] = "No se pudo enviar el correo de recuperación";
-        }
-
-    } else {
-        $jTableResult['rspst'] = 2;
-        $jTableResult['msjValidez'] = "El correo no está registrado";
-    }
-
-} else {
+if (!filter_var($email_destinatario, FILTER_VALIDATE_EMAIL)) {
     $jTableResult['rspst'] = 0;
     $jTableResult['msjValidez'] = "Correo inválido";
+    echo json_encode($jTableResult);
+    exit;
 }
 
-header('Content-Type: application/json');
+// ✅ Verificar si el correo existe
+$stmt = $link->prepare("SELECT Correo FROM usuarios WHERE Correo = ?");
+$stmt->bind_param("s", $email_destinatario);
+$stmt->execute();
+$stmt->store_result();
+
+if ($stmt->num_rows === 0) {
+    $jTableResult['rspst'] = 2;
+    $jTableResult['msjValidez'] = "El correo no está registrado";
+    echo json_encode($jTableResult);
+    exit;
+}
+
+// ✅ Generar clave segura de 12 caracteres
+$clave = bin2hex(random_bytes(6)); // 12 caracteres
+
+// ✅ Enviar correo
+$resul = enviarCorreo($email_remitente, $email_destinatario, $password, $clave);
+
+if ($resul !== true) {
+    $jTableResult['rspst'] = 3;
+    $jTableResult['msjValidez'] = "No se pudo enviar el correo";
+    echo json_encode($jTableResult);
+    exit;
+}
+
+// ✅ Encriptar contraseña
+$clave_encriptada = password_hash($clave, PASSWORD_DEFAULT);
+
+// ✅ Actualizar clave cifrada
+$stmt2 = $link->prepare("UPDATE usuarios SET Clave = ? WHERE Correo = ?");
+$stmt2->bind_param("ss", $clave_encriptada, $email_destinatario);
+
+if ($stmt2->execute()) {
+    $jTableResult['rspst'] = 1;
+    $jTableResult['msjValidez'] = "Se envió un correo con su nueva clave";
+} else {
+    $jTableResult['rspst'] = 4;
+    $jTableResult['msjValidez'] = "Error al actualizar la contraseña";
+}
+
 echo json_encode($jTableResult);
 exit;
-}
+
+?>
