@@ -1,6 +1,9 @@
 <?php
+
+use IncludeDB\Conexion;
+
 include_once("../../include/conex.php");
-$link = conex();
+$link = Conexion::conexion();
 
 $mensaje = "";
 $token = htmlspecialchars($_GET['token'] ?? '');

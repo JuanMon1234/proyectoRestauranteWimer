@@ -1,4 +1,7 @@
 <?php
+
+use IncludeDB\Conexion;
+
 session_start();
 if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
     header("Location: index.php?k=4");
@@ -6,7 +9,7 @@ if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
 }
 
 include("../../include/conex.php");
-$conexion = conex();
+$conexion = Conexion::conexion();
 
 // Función para obtener recetas por tipo
 function obtenerRecetasPorTipo($conexion, $tipo) {

@@ -1,4 +1,7 @@
 <?php
+
+use IncludeDB\Conexion;
+
 require_once('config.php');
 require_once('conex.php');
 function getNombreRol($idRol) {
@@ -20,7 +23,7 @@ header('Cache-Control: no-cache, must-revalidate');
 session_name($session_name);
 session_start();
 
-$conEctar = conex();
+$conEctar = Conexion::conexion();
 
 switch ($_REQUEST['action']) {
 

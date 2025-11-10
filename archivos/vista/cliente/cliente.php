@@ -1,6 +1,9 @@
 <?php
+
+use IncludeDB\Conexion;
+
 include('../../include/conex.php');
-$link=conex();
+$link=Conexion::conexion();
 
 session_start();
 

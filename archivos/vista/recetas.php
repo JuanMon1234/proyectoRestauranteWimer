@@ -1,4 +1,7 @@
 <?php
+
+use IncludeDB\Conexion;
+
 require_once(__DIR__ . "/../../include/config.php");
 require_once(__DIR__ . "/../../include/conex.php");
 require_once(__DIR__ . "/../../include/funciones.php");
@@ -16,7 +19,7 @@ if (!isset($_SESSION['Idusuario']) || $_SESSION['idrol'] != 2) {
 $sql = "SELECT r.id_receta, r.id_plato, r.tiempo_total, r.fuente, r.ubicacion_fisica, 
         r.tipo_plato, r.ingrediente_principal, r.precio, r.comentario_personal 
         FROM recetas r";
-$result = mysqli_query(conex(), $sql);
+$result = mysqli_query(Conexion::conexion(), $sql);
 
 $recetas = [];
 if ($result && mysqli_num_rows($result) > 0) {

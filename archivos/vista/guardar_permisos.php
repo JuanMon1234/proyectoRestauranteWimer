@@ -1,4 +1,7 @@
 <?php
+
+use IncludeDB\Conexion;
+
 header('Content-Type: application/json');
 require_once(__DIR__ . "/../../include/config.php");
 require_once(__DIR__ . "/../../include/funciones.php");
@@ -20,7 +23,7 @@ $idrol = intval($_POST['idrol']);
 $permisos_menu = $_POST['permisos_menu'] ?? []; // Array de IDs de menús completos
 $permisos_submenu = $_POST['permisos_submenu'] ?? []; // Array de IDs de submenús
 
-$conn = conex();
+$conn = Conexion::conexion();
 mysqli_begin_transaction($conn);
 
 try {

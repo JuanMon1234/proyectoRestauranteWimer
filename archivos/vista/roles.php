@@ -1,4 +1,7 @@
 <?php
+
+use IncludeDB\Conexion;
+
 require_once(__DIR__ . "/../../include/config.php");
 require_once(__DIR__ . "/../../include/funciones.php");
 
@@ -13,7 +16,7 @@ if (!isset($_SESSION['Idusuario']) || $_SESSION['idrol'] != 1) {
 if (isset($_GET['action']) && $_GET['action'] === 'presentarRoles') {
     header('Content-Type: application/json');
 
-    $conn = conex();
+    $conn = Conexion::conexion();
     $jTableResult = [];
     $jTableResult['listaRoles'] = "<thead><tr><th>Nombre</th></tr></thead><tbody>";
 

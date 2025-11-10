@@ -1,8 +1,11 @@
 <?php
+
+use IncludeDB\Conexion;
+
 include '../../herramientas/llave/llave.php';
 include '../../include/enviaremail.php';
 include '../../include/config.php'; // Aquí tienes el remitente y la contraseña de app
-$link = conex();
+$link = Conexion::conexion();
 
 $email_destinatario = $_POST['correoinicio'] ?? '';
 $jTableResult = ['msjValidez' => '', 'rspst' => 0];

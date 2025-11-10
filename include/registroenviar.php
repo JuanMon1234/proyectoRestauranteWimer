@@ -60,7 +60,7 @@ function enviarCorreo($email_remitente, $email_destinatario, $password) {
                 <td style='padding: 10px; border: 1px solid #ddd;'> Tu correo es:
                 <strong>$email_destinatario</strong></td> 
             </tr>
-             <tr>
+            <tr>
                 <td style='padding: 10px; border: 1px solid #ddd;'> Tu contraseña es:
                 <strong>$password</strong></td> 
             </tr>

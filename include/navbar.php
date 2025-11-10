@@ -1,4 +1,7 @@
 <?php
+
+use IncludeDB\Conexion;
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 if (session_status() === PHP_SESSION_NONE) {
@@ -12,7 +15,7 @@ if (!isset($_SESSION['Idusuario'])) {
 }
 
 require_once '../../include/conex.php';
-$conn = conex();
+$conn = Conexion::conexion();
 
 // Obtener rol del usuario
 $idRol = $_SESSION['idrol'] ?? null;
@@ -110,7 +113,7 @@ $menus = $result->fetch_all(MYSQLI_ASSOC);
         ?>
             <li class="nav-item">
                 <a class="nav-link text-white <?= $is_active ? 'active' : '' ?>" 
-                   href="<?= htmlspecialchars($menu['ruta']) ?>">
+                href="<?= htmlspecialchars($menu['ruta']) ?>">
                     <?php if (!empty($menu['icono'])): ?>
                         <i class="<?= htmlspecialchars($menu['icono']) ?> me-2"></i>
                     <?php endif; ?>

@@ -1,4 +1,7 @@
 <?php
+
+use IncludeDB\Conexion;
+
 require_once(__DIR__ . '/conex.php');
 require_once(__DIR__ . '/config.php');
 
@@ -6,7 +9,7 @@ require_once(__DIR__ . '/config.php');
  * Ejecuta una consulta SQL y retorna el resultado
  */
 function ejecutarConsulta($sql) {
-    $conexion = conex();
+    $conexion = Conexion::conexion();
     $resultado = mysqli_query($conexion, $sql);
     
     if (!$resultado) {
@@ -45,7 +48,7 @@ function verificarSesion() {
  * Obtiene información de un usuario por su ID
  */
 function obtenerUsuario($id) {
-    $conexion = conex();
+    $conexion = Conexion::conexion();
     $stmt = mysqli_prepare($conexion, "SELECT * FROM usuarios WHERE Idusuario = ?");
     
     if (!$stmt) {

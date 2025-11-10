@@ -1,10 +1,13 @@
 <?php
+
+use IncludeDB\Conexion;
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
 include_once('../include/conex.php');
-$link = conex();
+$link = Conexion::conexion();
 
 // Validar sesión
 if (!isset($_SESSION['idrol']) || !isset($_SESSION['id'])) {

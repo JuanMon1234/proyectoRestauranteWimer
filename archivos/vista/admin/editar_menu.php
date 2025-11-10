@@ -1,6 +1,9 @@
 <?php
+
+use IncludeDB\Conexion;
+
 include('../../include/conex.php');
-$conexion = conex();
+$conexion = Conexion::conexion();
 
 $id = $_GET['id'];
 $resultado = mysqli_query($conexion, "SELECT * FROM menus WHERE id_menu = $id");

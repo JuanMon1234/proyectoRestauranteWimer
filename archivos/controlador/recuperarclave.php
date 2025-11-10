@@ -4,12 +4,13 @@ require_once '../../herramientas/PHPMailer/src/PHPMailer.php';
 require_once '../../herramientas/PHPMailer/src/SMTP.php';
 require_once '../../herramientas/PHPMailer/src/Exception.php';
 
+use IncludeDB\Conexion;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 header('Content-Type: application/json');
 
-$link = conex();
+$link = Conexion::conexion();
 $correo = htmlspecialchars(trim($_GET['correo'] ?? ''));
 
 if (empty($correo)) {
@@ -51,6 +52,8 @@ $mail->SMTPOptions = [
         'allow_self_signed' => true
     ]
 ];
+    } catch (Exception $e) {
+        echo "Error enviando correo: {$mail->ErrorInfo}";
 
         $mail->setFrom('fernandomontilla8@gmail.com', 'Soporte Restaurante');
         $mail->addAddress($correo, $usuario['Nombres']);

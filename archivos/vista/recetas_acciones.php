@@ -1,8 +1,11 @@
 <?php
+
+use IncludeDB\Conexion;
+
 require_once("../../include/conex.php");
 require_once("../../include/funciones.php");
 
-$link = conex();
+$link = Conexion::conexion();
 header('Content-Type: application/json');
 
 $action = $_POST['action'] ?? '';
