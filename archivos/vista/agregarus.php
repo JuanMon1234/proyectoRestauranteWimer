@@ -87,8 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $claveHash = password_hash($clave, PASSWORD_DEFAULT);
 
     // CONSULTA PREPARADA PARA INSERTAR
-    $stmt = mysqli_prepare($conex, 
-        "INSERT INTO usuarios (Nombres, Apellidos, Correo, Identificacion, Celular, idrol, Idtipodoc, estado, Clave) 
+    $stmt = mysqli_prepare($conex, "INSERT INTO usuarios (Nombres, Apellidos, Correo, Identificacion, Celular, idrol, Idtipodoc, estado, Clave) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
     );
     mysqli_stmt_bind_param($stmt, "sssssiiss", 
