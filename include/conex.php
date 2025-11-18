@@ -12,7 +12,7 @@ class Conexion
             $Data['DB_USER'], 
             $Data['DB_PASS'],
             $Data['DB_NAME'],
-            $Data['DB_PORT']
+            $Data['DB_PORT'],
         );
 
         if (!$conexion) {

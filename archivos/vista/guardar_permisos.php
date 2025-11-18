@@ -35,8 +35,7 @@ try {
 
     // ✅ 2. Insertar permisos de menú completo
     $stmt_menu = $conn->prepare(
-        "INSERT INTO permisos_rol (idrol, idmenu, idsubmenu, permitido, es_area) 
-        VALUES (?, ?, NULL, 1, 1)"
+        "INSERT INTO permisos_rol (idrol, idmenu, idsubmenu, permitido, es_area) VALUES (?, ?, NULL, 1, 1)"
     );
 
     foreach ($permisos_menu as $idmenu) {
@@ -51,8 +50,7 @@ try {
     );
 
     $stmt_submenu_insert = $conn->prepare(
-        "INSERT INTO permisos_rol (idrol, idmenu, idsubmenu, permitido, es_area) 
-        VALUES (?, ?, ?, 1, 0)"
+        "INSERT INTO permisos_rol (idrol, idmenu, idsubmenu, permitido, es_area) VALUES (?, ?, ?, 1, 0)"
     );
 
     foreach ($permisos_submenu as $idsubmenu) {
