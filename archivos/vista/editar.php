@@ -37,16 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $update = "
         UPDATE usuarios SET 
-        Nombres = ?, 
-        Apellidos = ?, 
-        Correo = ?, 
-        Identificacion = ?, 
-        Celular = ?, 
-        idrol = ?, 
-        estado = ?
-        WHERE Idusuario = ?
-    ";
-
+        Nombres = ?, Apellidos = ?, Correo = ?, Identificacion = ?, Celular = ?, idrol = ?, estado = ?WHERE Idusuario = ?";
     $stmt2 = mysqli_prepare($link, $update);
 
     mysqli_stmt_bind_param(
