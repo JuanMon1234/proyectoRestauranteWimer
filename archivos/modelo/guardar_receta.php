@@ -3,7 +3,7 @@
 use IncludeDB\Conexion;
 
 session_start();
-include('../../include/conex.php');
+include '../../include/conex.php';
 $link = Conexion::conexion();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

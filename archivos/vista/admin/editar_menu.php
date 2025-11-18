@@ -1,7 +1,7 @@
 <?php
 
 use IncludeDB\Conexion;
-include('../../include/conex.php');
+include '../../include/conex.php';
 $conexion = Conexion::conexion();
 
 $id = filter_var($_GET['id'], FILTER_VALIDATE_INT);
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="number" name="precio" class="form-control" value="<?php echo $menu['precio']; ?>" required>
         </div>
         <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" name="disponible" id="disponible" <?php if ($menu['disponible']) echo 'checked'; ?>>
+            <input class="form-check-input" type="checkbox" name="disponible" id="disponible" <?php  if  ($menu['disponible']) {echo 'checked'; }?>>
             <label class="form-check-label" for="disponible">Disponible</label>
         </div>
         <button type="submit" class="btn btn-primary">Actualizar</button>

@@ -1,7 +1,7 @@
 <?php
-require_once(__DIR__ . "/../../include/config.php");
-require_once(__DIR__ . "/../../include/funciones.php");
-require_once(__DIR__ . "/../../herramientas/llave/llave.php");
+require_once __DIR__ . "/../../include/config.php";
+require_once __DIR__ . "/../../include/funciones.php";
+require_once __DIR__ . "/../../herramientas/llave/llave.php";
 
 require '../../herramientas/PHPMailermas/src/Exception.php';
 require '../../herramientas/PHPMailermas/src/PHPMailer.php';

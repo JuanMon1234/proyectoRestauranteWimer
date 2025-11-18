@@ -2,8 +2,8 @@
 
 use IncludeDB\Conexion;
 
-require_once(__DIR__ . '/conex.php');
-require_once(__DIR__ . '/config.php');
+require_once __DIR__ . '/conex.php' ;
+require_once __DIR__ . '/config.php';
 
 /**
  * Excepción específica para errores SQL

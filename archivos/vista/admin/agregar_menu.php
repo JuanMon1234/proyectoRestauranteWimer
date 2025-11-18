@@ -8,7 +8,7 @@ if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
     exit();
 }
 
-include("../../include/conex.php");
+include "../../include/conex.php";
 $conexion = Conexion::conexion();
 
 // Función para obtener recetas por tipo

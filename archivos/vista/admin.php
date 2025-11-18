@@ -1,6 +1,6 @@
 <?php
 // admin.php
-require_once("../../include/config.php");
+require_once "../../include/config.php";
 session_name($session_name);
 session_start();
 
@@ -18,7 +18,7 @@ if (!isset($_SESSION['Idusuario']) || $_SESSION['idrol'] != 1) {
     <title>Panel de Administración</title>
     
     <!-- Incluir cabecera -->
-    <?php include_once("../../include/header.php"); ?>
+    <?php include_once "../../include/header.php"; ?>
     
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -32,7 +32,7 @@ if (!isset($_SESSION['Idusuario']) || $_SESSION['idrol'] != 1) {
 <body>
     <div class="admin-container">
         <!-- Menú lateral -->
-            <?php include_once("../../include/navbar.php"); ?>
+            <?php include_once "../../include/navbar.php"; ?>
         <!-- Contenido principal -->
         <main class="main-content">
             <div class="admin-header">
@@ -159,7 +159,7 @@ if (!isset($_SESSION['Idusuario']) || $_SESSION['idrol'] != 1) {
         </div>
     </div>
 
-    <?php include_once("../../include/footer.php"); ?>
+    <?php include_once "../../include/footer.php"; ?>
 
 
 

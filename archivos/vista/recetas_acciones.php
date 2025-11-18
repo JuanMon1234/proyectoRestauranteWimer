@@ -2,8 +2,8 @@
 
 use IncludeDB\Conexion;
 
-require_once("../../include/conex.php");
-require_once("../../include/funciones.php");
+require_once "../../include/conex.php" ;
+require_once "../../include/funciones.php";
 
 $link = Conexion::conexion();
 header('Content-Type: application/json');

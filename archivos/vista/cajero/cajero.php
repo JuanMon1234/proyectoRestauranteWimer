@@ -2,7 +2,7 @@
 
 use IncludeDB\Conexion;
 
-include('../../include/conex.php');
+include '../../include/conex.php';
 $link=Conexion::conexion();
 
 session_start();
@@ -16,7 +16,7 @@ $id=$_SESSION['id'];
 $rol=$_SESSION['Idrol'];
 
 
-include('archivos\vista\quien.php');
+include 'archivos\vista\quien.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">

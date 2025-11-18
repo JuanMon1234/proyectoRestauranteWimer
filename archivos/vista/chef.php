@@ -1,7 +1,8 @@
 <?php
-require_once("../../include/config.php");
-require_once("../../include/conex.php");
-require_once("../../include/funciones.php");
+
+require_once "../../include/config.php";
+require_once "../../include/conex.php";
+require_once "../../include/funciones.php";
 session_name($session_name);
 session_start();
 
@@ -15,10 +16,10 @@ $nombre = $_SESSION['nombre'] ?? 'Chef';
 $idRol = $_SESSION['idrol'];
 // Traer pedidos activos del chef
 $sqlPedidos = "SELECT p.Idpedidos, p.fecha, p.estado, u.Nombres AS cliente 
-               FROM pedidos p 
-               INNER JOIN usuarios u ON p.Idusuarios = u.Idusuario 
-               WHERE p.estado = 'activo'";
-$resultPedidos = ejecutarConsulta($sqlPedidos);
+                FROM pedidos p 
+                INNER JOIN usuarios u ON p.Idusuarios = u.Idusuario 
+                WHERE p.estado = 'activo'";
+$resultPedidos = ejecutarConsultaSegura($sqlPedidos);
 $pedidos = [];
 if ($resultPedidos && mysqli_num_rows($resultPedidos) > 0) {
     while ($fila = mysqli_fetch_assoc($resultPedidos)) {
@@ -27,7 +28,7 @@ if ($resultPedidos && mysqli_num_rows($resultPedidos) > 0) {
 }
 ?>
 
-<?php include_once("../../include/header.php"); ?>
+<?php include_once "../../include/header.php"; ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
@@ -46,7 +47,7 @@ if ($resultPedidos && mysqli_num_rows($resultPedidos) > 0) {
 
 <body>
 <div class="chef-container">
-    <?php include_once("../../include/navbar.php"); ?>
+    <?php include_once "../../include/navbar.php"; ?>
 
     <main class="main-content">
         <div class="chef-header">
@@ -134,7 +135,7 @@ if ($resultPedidos && mysqli_num_rows($resultPedidos) > 0) {
     </main>
 </div>
 
-<?php include_once("../../include/footer.php"); ?>
+<?php include_once "../../include/footer.php"; ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>

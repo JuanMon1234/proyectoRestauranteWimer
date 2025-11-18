@@ -4,8 +4,8 @@ if (!isset($_SESSION['idrol']) || $_SESSION['idrol'] != 2) {
     header("Location: index.php?k=4");
     exit();
 }
-include('../../include/conex.php');
-$conexion = conex();
+use  IncludeDB\Conexion;
+$conexion = Conexion::conexion();
 $query = "SELECT * FROM ingredientes";
 $resultado = mysqli_query($conexion, $query);
 ?>

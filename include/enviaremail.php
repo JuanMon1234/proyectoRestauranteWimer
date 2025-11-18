@@ -1,7 +1,7 @@
 <?php
 //https://getbootstrap.com/docs/5.0/components/modal/
-include_once('conex.php');
-include_once('config.php');
+include_once 'conex.php';
+include_once 'config.php';
 // include ('../../herramientas/llave/llave.php'); 
 header('Content-Type: text/html; charset='.$charset);
 header('Cache-Control: no-cache, must-revalidate');

@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-include_once('../include/conex.php');
+include_once '../include/conex.php' ;
 $link = Conexion::conexion();
 
 // Validar sesión

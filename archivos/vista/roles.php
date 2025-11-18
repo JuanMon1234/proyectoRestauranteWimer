@@ -2,8 +2,8 @@
 
 use IncludeDB\Conexion;
 
-require_once(__DIR__ . "/../../include/config.php");
-require_once(__DIR__ . "/../../include/funciones.php");
+require_once __DIR__ . "/../../include/config.php" ;
+require_once __DIR__ . "/../../include/funciones.php" ;
 
 session_name($session_name);
 session_start();

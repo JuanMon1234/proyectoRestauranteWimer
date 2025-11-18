@@ -1,7 +1,7 @@
 <?php
-require_once(__DIR__ . "/../../include/config.php");
-require_once(__DIR__ . "/../../include/funciones.php");
-
+require_once __DIR__ . "/../../include/config.php";
+require_once __DIR__ . "/../../include/funciones.php";
+require_once __DIR__ . "/../../herramientas/llave/llave.php";
 session_name($session_name);
 session_start();
 
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // --- Traer datos del usuario
 $sql = "SELECT * FROM usuarios WHERE Idusuario = $id";
-$res = ejecutarConsulta($sql);
+$res = ejecutarConsultaSegura($sql);
 $usuario = mysqli_fetch_assoc($res);
 
 // --- Procesar actualización vía POST
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 idrol = $rol,
                 estado = '$estado'
             WHERE Idusuario = $id";
-    $res = ejecutarConsulta($sql);
+    $res = ejecutarConsultaSegura($sql);
 
     if ($res) {
         echo "<div class='alert alert-success'>Usuario actualizado correctamente.</div>";
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Rol</label>
         <select name="idrol" class="form-select" required>
             <?php
-            $roles = ejecutarConsulta("SELECT idrol, Nombre FROM roles");
+            $roles = ejecutarConsultaSegura("SELECT idrol, Nombre FROM roles");
             while ($r = mysqli_fetch_assoc($roles)) {
                 $sel = $usuario['idrol'] == $r['idrol'] ? "selected" : "";
                 echo "<option value='{$r['idrol']}' $sel>{$r['Nombre']}</option>";

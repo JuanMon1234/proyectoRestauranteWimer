@@ -7,7 +7,7 @@ header('Content-Type: application/json; charset=utf-8');
 $id = intval($_POST['id']);
 
 if ($id > 0) {
-    $res = ejecutarConsulta("DELETE FROM usuarios WHERE Idusuario = $id");
+    $res = ejecutarConsultaSegura("DELETE FROM usuarios WHERE Idusuario = $id");
     if ($res) {
         echo json_encode([
             'status' => 'success',

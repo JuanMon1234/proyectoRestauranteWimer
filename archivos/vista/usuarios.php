@@ -1,6 +1,6 @@
 <?php
-require_once(__DIR__ . "/../../include/config.php");
-require_once(__DIR__ . "/../../include/funciones.php");
+require_once __DIR__ . "/../../include/config.php";
+require_once __DIR__ . "/../../include/funciones.php";
 
 session_name($session_name);
 session_start();
@@ -15,7 +15,7 @@ $sql = "SELECT u.Idusuario, u.Nombres, u.Apellidos, u.Identificacion,
         u.Correo, u.Celular, u.estado, r.idrol, r.Nombre AS nombre_rol
         FROM usuarios u
         INNER JOIN roles r ON u.idrol = r.idrol";
-$result = ejecutarConsulta($sql);
+$result = ejecutarConsultaSegura($sql);
 
 $usuarios = [];
 if ($result && mysqli_num_rows($result) > 0) {
@@ -34,7 +34,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 <body>
 
 <div class="admin-container">
-    <?php include_once("../../include/navbar.php"); ?>
+    <?php include_once "../../include/navbar.php"; ?>
 
     <main class="main-content p-4">
         <div class="admin-header mb-4">

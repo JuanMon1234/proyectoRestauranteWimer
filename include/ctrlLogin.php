@@ -2,8 +2,8 @@
 
 use IncludeDB\Conexion;
 
-require_once('config.php');
-require_once('conex.php');
+require_once 'config.php';
+require_once 'conex.php';
 function getNombreRol($idRol) {
     $roles = [
         1 => 'Administrador',

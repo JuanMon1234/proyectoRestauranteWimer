@@ -1,5 +1,5 @@
 <?php
-include_once("../../include/conex.php");
+include_once "../../include/conex.php";
 require_once "../../include/autoload.php";
 require_once '../../herramientas/PHPMailer/src/PHPMailer.php';
 require_once '../../herramientas/PHPMailer/src/SMTP.php';

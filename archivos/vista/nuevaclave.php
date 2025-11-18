@@ -2,7 +2,7 @@
 
 use IncludeDB\Conexion;
 
-include_once("../../include/conex.php");
+include_once "../../include/conex.php" ;
 $link = Conexion::conexion();
 
 $mensaje = "";

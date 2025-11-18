@@ -1,10 +1,10 @@
 <?php
-require_once("../../include/config.php");
-require_once("../../include/conex.php");
-require_once("../../include/funciones.php");
+require_once "../../include/config.php";
+require_once "../../include/conex.php";
+require_once "../../include/funciones.php";
 
 // Traer lista de platos para el select
-$platos = ejecutarConsulta("SELECT id_plato, nombre FROM platos");
+$platos = ejecutarConsultaSegura("SELECT id_plato, nombre FROM platos");
 ?>
 <div class="modal-header bg-success text-white">
     <h5 class="modal-title">Agregar Receta</h5>

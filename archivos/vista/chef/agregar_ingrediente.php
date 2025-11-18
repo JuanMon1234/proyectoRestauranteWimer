@@ -7,7 +7,7 @@ if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 2) {
     header("Location: index.php?k=4");
     exit();
 }
-include('../../include/conex.php');
+include '../../include/conex.php';
 $conexion = Conexion::conexion();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
