@@ -5,7 +5,7 @@ class Conexion
 {
     public static function conexion()
     {
-        $config = include_once __DIR__ . "/DB.php";
+        $config = include_once __DIR__ . ("/DB.php");
 
         $conexion = mysqli_connect(
             $config['DB_HOST'],

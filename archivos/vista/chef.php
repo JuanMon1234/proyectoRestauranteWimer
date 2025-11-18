@@ -2,7 +2,7 @@
 
 require_once ("../../include/config.php");
 require_once ("../../include/conex.php");
-require_once ("../../include/funciones.php)";
+require_once ("../../include/funciones.php");
 session_name($session_name);
 session_start();
 
