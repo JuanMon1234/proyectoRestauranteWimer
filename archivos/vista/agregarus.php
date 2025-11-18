@@ -89,10 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // CONSULTA PREPARADA PARA INSERTAR
     $stmt = mysqli_prepare($conex, "INSERT INTO usuarios (Nombres, Apellidos, Correo, Identificacion, Celular, idrol, Idtipodoc, estado, Clave) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
     );
-    mysqli_stmt_bind_param($stmt, "sssssiiss", 
-        $nombres, $apellidos, $correo, $identificacion, $celular, $rol, $tipodoc, $estado, $claveHash
+    mysqli_stmt_bind_param($stmt, "sssssiiss", $nombres, $apellidos, $correo, $identificacion, $celular, $rol, $tipodoc, $estado, $claveHash
     );
-
     if (mysqli_stmt_execute($stmt)) {
         enviarCorreo($email_remitente, $correo, $password_app, $clave);
         echo "<div class='alert alert-success'>✅ Usuario agregado correctamente.</div>";
@@ -102,4 +100,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     mysqli_stmt_close($stmt);
 }
-?>
