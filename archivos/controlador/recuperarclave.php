@@ -1,6 +1,6 @@
 <?php
 include_once "../../include/conex.php";
-include_once "../../include/autoload.php";
+include_once ("../../include/autoload.php");
 require_once '../../herramientas/PHPMailer/src/PHPMailer.php';
 require_once '../../herramientas/PHPMailer/src/SMTP.php';
 require_once '../../herramientas/PHPMailer/src/Exception.php';
@@ -9,7 +9,7 @@ use IncludeDB\Conexion;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$env = include_once "../../include/env.php";
+$env = include_once ("../../include/env.php");
 header('Content-Type: application/json');
 
 $link = Conexion::conexion();
