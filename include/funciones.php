@@ -6,6 +6,11 @@ require_once(__DIR__ . '/conex.php');
 require_once(__DIR__ . '/config.php');
 
 /**
+ * Excepción específica para errores SQL
+ */
+class ConsultaSqlException extends Exception {}
+
+/**
  * Ejecuta una consulta SQL segura con parámetros
  */
 function ejecutarConsultaSegura($sql, $paramTypes = "", $params = []) {
@@ -15,10 +20,9 @@ function ejecutarConsultaSegura($sql, $paramTypes = "", $params = []) {
 
     if (!$stmt) {
         error_log("Error al preparar consulta: " . mysqli_error($conexion));
-        throw new Exception("Error al preparar consulta SQL");
+        throw new ConsultaSqlException("Error al preparar consulta SQL: " . mysqli_error($conexion));
     }
 
-    // Si hay parámetros, los asociamos
     if ($paramTypes && !empty($params)) {
         mysqli_stmt_bind_param($stmt, $paramTypes, ...$params);
     }
@@ -32,6 +36,7 @@ function ejecutarConsultaSegura($sql, $paramTypes = "", $params = []) {
 
     return $resultado;
 }
+
 /**
  * Verifica si el usuario tiene una sesión válida
  */
