@@ -10,7 +10,7 @@ if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 3) {
     exit();
 }
 
-include_once ('../../include/conex.php') ;
+include_once '../../include/conex.php' ;
 $link = Conexion::conexion();
 
 // Obtener datos del mesero desde la tabla usuarios
