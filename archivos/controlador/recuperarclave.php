@@ -9,7 +9,7 @@ use IncludeDB\Conexion;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-$env = include "../../include/env.php";
+$env = include_once "../../include/env.php";
 header('Content-Type: application/json');
 
 $link = Conexion::conexion();
