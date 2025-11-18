@@ -37,13 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $update = "
         UPDATE usuarios SET 
-            Nombres = ?, 
-            Apellidos = ?, 
-            Correo = ?, 
-            Identificacion = ?, 
-            Celular = ?, 
-            idrol = ?, 
-            estado = ?
+        Nombres = ?, 
+        Apellidos = ?, 
+        Correo = ?, 
+        Identificacion = ?, 
+        Celular = ?, 
+        idrol = ?, 
+        estado = ?
         WHERE Idusuario = ?
     ";
 
