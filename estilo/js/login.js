@@ -29,7 +29,7 @@ $(document).ready(function () {
         }
 
         // Validar formato email
-        const emailRegex = /^[^\s@]{1,64}@[^\s@]{1,255}\.[^\s@]{1,10}$/;
+        const emailRegex = /^[^\s@]{1,64}@[^\s@]{1,255}\.[^\s@]{1,10}$/;//se debe dar una longitud
         if (!emailRegex.test(correo)) {
             showMessage("Por favor ingrese un correo electrónico válido.");
             return;
@@ -212,7 +212,4 @@ $(document).ready(function () {
             columnDefs: [{ orderable: false, targets: [6] }]
         });
     }
-
-    
-
 });
