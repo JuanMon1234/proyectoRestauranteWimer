@@ -1,48 +1,75 @@
 <?php
+
 require_once __DIR__ . "/../../include/config.php";
+require_once __DIR__ . "/../../include/conex.php";
 require_once __DIR__ . "/../../include/funciones.php";
 require_once __DIR__ . "/../../herramientas/llave/llave.php";
+
 session_name($session_name);
 session_start();
+// Obtener ID de forma segura
+$id = ($_SERVER['REQUEST_METHOD'] === 'POST')
+        ? intval($_POST['Idusuario'])
+        : intval($_GET['id']);
 
-// --- Obtener ID del usuario ya sea por GET (para cargar formulario) o POST (para actualizar)
+// -----------------------
+// TRAER DATOS DEL USUARIO
+// -----------------------
+$sql = "SELECT * FROM usuarios WHERE Idusuario = ?";
+$stmt = mysqli_prepare($link, $sql);
+mysqli_stmt_bind_param($stmt, "i", $id);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$usuario = mysqli_fetch_assoc($result);
+
+// -----------------------
+// PROCESAR ACTUALIZACIÓN
+// -----------------------
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id = intval($_POST['Idusuario']); // <-- aquí el ID viene del input hidden
-} else {
-    $id = intval($_GET['id']);
-}
 
-// --- Traer datos del usuario
-$sql = "SELECT * FROM usuarios WHERE Idusuario = $id";
-$res = ejecutarConsultaSegura($sql);
-$usuario = mysqli_fetch_assoc($res);
-
-// --- Procesar actualización vía POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombres = trim($_POST['nombres']);
-    $apellidos = trim($_POST['apellidos']);
-    $correo = trim($_POST['correo']);
+    $nombres        = trim($_POST['nombres']);
+    $apellidos      = trim($_POST['apellidos']);
+    $correo         = trim($_POST['correo']);
     $identificacion = trim($_POST['identificacion']);
-    $celular = trim($_POST['celular']);
-    $rol = intval($_POST['idrol']);
-    $estado = $_POST['estado'];
+    $celular        = trim($_POST['celular']);
+    $rol            = intval($_POST['idrol']);
+    $estado         = trim($_POST['estado']);
 
-    $sql = "UPDATE usuarios SET 
-                Nombres = '$nombres',
-                Apellidos = '$apellidos',
-                Correo = '$correo',
-                Identificacion = '$identificacion',
-                Celular = '$celular',
-                idrol = $rol,
-                estado = '$estado'
-            WHERE Idusuario = $id";
-    $res = ejecutarConsultaSegura($sql);
+    $update = "
+        UPDATE usuarios SET 
+            Nombres = ?, 
+            Apellidos = ?, 
+            Correo = ?, 
+            Identificacion = ?, 
+            Celular = ?, 
+            idrol = ?, 
+            estado = ?
+        WHERE Idusuario = ?
+    ";
 
-    if ($res) {
+    $stmt2 = mysqli_prepare($link, $update);
+
+    mysqli_stmt_bind_param(
+        $stmt2,
+        "ssssssis",
+        $nombres,
+        $apellidos,
+        $correo,
+        $identificacion,
+        $celular,
+        $rol,
+        $estado,
+        $id
+    );
+
+    $ok = mysqli_stmt_execute($stmt2);
+
+    if ($ok) {
         echo "<div class='alert alert-success'>Usuario actualizado correctamente.</div>";
     } else {
-        echo "<div class='alert alert-danger'>Error al actualizar usuario</div>";
+        echo "<div class='alert alert-danger'>Error al actualizar usuario.</div>";
     }
+
     exit;
 }
 ?>
