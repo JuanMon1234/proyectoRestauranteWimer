@@ -1,6 +1,6 @@
 <?php
 include_once "../../include/conex.php";
-require_once "../../include/autoload.php";
+include_once "../../include/autoload.php";
 require_once '../../herramientas/PHPMailer/src/PHPMailer.php';
 require_once '../../herramientas/PHPMailer/src/SMTP.php';
 require_once '../../herramientas/PHPMailer/src/Exception.php';
