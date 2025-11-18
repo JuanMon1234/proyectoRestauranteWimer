@@ -1,6 +1,6 @@
 <?php
-require_once("../../include/config.php");
-require_once("../../include/funciones.php");
+require_once "../../include/config.php";
+require_once "../../include/funciones.php";
 
 header('Content-Type: application/json; charset=utf-8');
 

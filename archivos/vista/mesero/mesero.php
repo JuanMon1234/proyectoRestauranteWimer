@@ -1,4 +1,7 @@
 <?php
+
+use IncludeDB\Conexion;
+
 session_start();
 
 // Redirigir si no hay sesión o si el rol no es mesero
@@ -7,8 +10,8 @@ if (!isset($_SESSION['Idrol']) || $_SESSION['Idrol'] != 3) {
     exit();
 }
 
-include('../../include/conex.php');
-$link = conex();
+include '../../include/conex.php' ;
+$link = Conexion::conexion();
 
 // Obtener datos del mesero desde la tabla usuarios
 $id = intval($_SESSION['id']);
