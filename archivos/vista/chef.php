@@ -1,8 +1,8 @@
 <?php
 
-require_once "../../include/config.php";
-require_once "../../include/conex.php";
-require_once "../../include/funciones.php";
+require_once ("../../include/config.php");
+require_once ("../../include/conex.php");
+require_once ("../../include/funciones.php)";
 session_name($session_name);
 session_start();
 
@@ -47,7 +47,7 @@ if ($resultPedidos && mysqli_num_rows($resultPedidos) > 0) {
 
 <body>
 <div class="chef-container">
-    <?php include_once "../../include/navbar.php"; ?>
+    <?php include_once ("../../include/navbar.php"); ?>
 
     <main class="main-content">
         <div class="chef-header">
@@ -135,7 +135,7 @@ if ($resultPedidos && mysqli_num_rows($resultPedidos) > 0) {
     </main>
 </div>
 
-<?php include_once "../../include/footer.php"; ?>
+<?php include_once ("../../include/footer.php"); ?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
